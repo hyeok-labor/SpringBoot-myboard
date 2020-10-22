@@ -2,17 +2,32 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-
+ <!--해당하는 자바 클래스 위치 매핑함-->
 <mapper namespace="com.myboard.mapper.BoardMapper">
-
+ <!-- 해당함수에 대한 쿼리를 실행해 DB Update -->
     <insert id="boardInsert" parameterType="com.myboard.domain.BoardVO">
         insert into board_pro
             values
         (#{bno},#{subject},#{content},#{writer},now(),0)
     </insert>
-    
+
     <select id="boardList" resultType="com.myboard.domain.BoardVO">
-    	select * from board_pro
+        select * from board_pro
     </select>
 
+    <select id="boardView" parameterType="int" resultType="com.myboard.domain.BoardVO">
+        select * from board_pro where bno = #{bno}
+    </select>
+
+    <update id="hitPlus" parameterType="int">
+        update board_pro set hit = hit+1 where bno = #{bno}
+    </update>
+
+    <update id="boardUpdate" parameterType="com.myboard.domain.BoardVO">
+        update board_pro set subject = #{subject}, content = #{content} where bno = #{bno}
+    </update>
+
+    <delete id="boardDelete" parameterType="int">
+        delete from board_pro where bno = #{bno}
+    </delete>
 </mapper>

@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 
 @SpringBootApplication
 @MapperScan(value = {"com.myboard.mapper"})	// MapperScan 에서 본인의 mapper가 위치한 패키치명 표
@@ -33,6 +34,15 @@ public class MyboardApplication {
 		sessionFactory.setMapperLocations(res);
 
 		return sessionFactory.getObject();
+	}
+
+	/**
+	 * HiddenHitpMethodFilter
+	 */
+	@Bean
+	public HiddenHttpMethodFilter hiddenHttpMethodFilter() {
+		HiddenHttpMethodFilter filter = new HiddenHttpMethodFilter();
+		return filter;
 	}
 
 }
